@@ -1,0 +1,96 @@
+[versions]
+agp = "8.5.2"
+androidxCoreKtx = "1.13.1"
+appcompatVersion = "1.7.0"
+biometric = "1.2.0"
+biometricKtx = "1.4.0-alpha02"
+biometricVersion = "1.1.0"
+converterGson = "2.9.0"
+firebaseBom = "33.6.0"
+glide = "4.12.0"
+imageslideshow = "0.1.2"
+imageslideshowVersion = "0.1.0"
+kotlin = "1.9.22"
+coreKtx = "1.13.1"
+junit = "4.13.2"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
+appcompat = "1.7.0"
+lifecycleLivedataKtx = "2.8.4"
+lifecycleViewmodelKtx = "2.8.4"
+loggingInterceptor = "4.9.3"
+material = "1.12.0"
+activity = "1.9.1"
+constraintlayout = "2.1.4"
+materialVersion = "1.12.0"
+recyclerview = "1.3.2"
+retrofit = "2.9.0"
+room = "2.6.1"
+ksp = "1.9.0-1.0.13"
+roomRuntime = "2.6.1"
+roomKtx = "2.6.1"
+sdpAndroid = "1.1.1"
+sspAndroid = "1.1.1"
+databindingRuntime = "8.5.2"
+fragmentKtx = "1.8.5"
+googleHiltAndroid = "2.51.1"
+hiltAndroidCompilerVersion = "2.51.1"
+daggerHilt = "2.51.1"
+coreCrocodic = "4.0.11"
+firebaseGms = "4.4.2"
+firebaseCrashlytic = "2.9.2"
+firebasePref = "1.4.2"
+mediationTestSuite = "3.0.0"
+
+
+[libraries]
+androidx-appcompat-v151 = { module = "androidx.appcompat:appcompat", version.ref = "appcompatVersion" }
+androidx-biometric = { module = "androidx.biometric:biometric", version.ref = "biometric" }
+androidx-biometric-ktx = { module = "androidx.biometric:biometric-ktx", version.ref = "biometricKtx" }
+androidx-biometric-v110 = { module = "androidx.biometric:biometric", version.ref = "biometricVersion" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-core-ktx-v190 = { module = "androidx.core:core-ktx", version.ref = "androidxCoreKtx" }
+androidx-lifecycle-livedata-ktx-v251 = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
+androidx-lifecycle-viewmodel-ktx-v251 = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
+androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
+androidx-room-runtime-v250 = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
+compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
+converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+firebase-perf = { module = "com.google.firebase:firebase-perf" }
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+imageslideshow = { module = "com.github.denzcoskun:ImageSlideshow", version.ref = "imageslideshow" }
+imageslideshow-v010 = { module = "com.github.denzcoskun:ImageSlideshow", version.ref = "imageslideshowVersion" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "loggingInterceptor" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+material-v161 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version = "2.8.4" }
+lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version = "2.8.4" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomKtx" }
+sdp-android = { module = "com.intuit.sdp:sdp-android", version.ref = "sdpAndroid" }
+ssp-android = { module = "com.intuit.ssp:ssp-android", version.ref = "sspAndroid" }
+androidx-databinding-runtime = { group = "androidx.databinding", name = "databinding-runtime", version.ref = "databindingRuntime" }
+androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtx" }
+hilt-android-compiler-v2511 = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroidCompilerVersion" }
+hilt-android-v2511 = { module = "com.google.dagger:hilt-android", version.ref = "googleHiltAndroid" }
+coreCrocodic = {group = "com.github.crocodic-studio", name = "AndroidCoreProject", version.ref = "coreCrocodic"}
+mediation-test-suite = { group = "com.google.android.ads", name = "mediation-test-suite", version.ref = "mediationTestSuite" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+google-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+daggerHilt = {id = "com.google.dagger.hilt.android", version.ref = "daggerHilt"}
+firebaseGms = {id = "com.google.gms.google-services", version.ref = "firebaseGms"}
+firebaseCrashlytic = {id = "com.google.firebase.crashlytics", version.ref ="firebaseCrashlytic"}
+firebasePref = {id = "com.google.firebase.firebase-perf", version.ref = "firebasePref"}

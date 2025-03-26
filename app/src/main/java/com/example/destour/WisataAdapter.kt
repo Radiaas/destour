@@ -38,6 +38,7 @@ class WisataAdapter(
 
         updateBookmarkIcon(holder, wisata.id)
 
+
         // Klik item untuk membuka DetailWisataActivity
         holder.itemView.setOnClickListener {
             val intent = Intent(holder.itemView.context, DetailWisataActivity::class.java).apply {
@@ -67,10 +68,18 @@ class WisataAdapter(
     private fun updateBookmarkIcon(holder: ItemViewHolder<ItemWisataBinding, WisataItem>, wisataId: Int) {
         val sharedPrefs = holder.itemView.context.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
         val isBookmarked = sharedPrefs.getBoolean("BOOKMARK_$wisataId", false)
+
         holder.binding.btnBookmark.setImageResource(
             if (isBookmarked) R.drawable.ic_bookmarked else R.drawable.ic_bookmark
         )
+
+        holder.binding.btnBookmark.setOnClickListener {
+            val newBookmarkStatus = !isBookmarked
+            sharedPrefs.edit().putBoolean("BOOKMARK_$wisataId", newBookmarkStatus).apply()
+            updateBookmarkStatus(wisataId, newBookmarkStatus)
+        }
     }
+
 
 
     fun updateBookmarkStatus(wisataId: Int, isBookmarked: Boolean) {
@@ -80,8 +89,13 @@ class WisataAdapter(
                 it.bookmarked = isBookmarked
                 notifyItemChanged(index)
             }
+        } else {
+            Log.e("WisataAdapter", "ID tidak ditemukan di daftar wisata")
         }
     }
+
+
+
 
     private fun convertGoogleDriveUrl(url: String?): String {
         if (url.isNullOrEmpty()) return ""

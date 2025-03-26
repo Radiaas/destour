@@ -59,30 +59,36 @@ class MainActivity : NoViewModelActivity<ActivityMainBinding>(R.layout.activity_
 
     private fun getBookmarks() {
         lifecycleScope.launch {
-            Log.d("MainActivity", "getBookmarks() dimulai...")
             try {
                 val response = apiService.getBookmarks(token = token, page = 1, limit = 10)
-                Log.d("MainActivity", "Response status: ${response.code()}, message: ${response.message()}")
-
                 if (response.isSuccessful) {
-                    val bookmarks = response.body()?.data?.bookmarks
-                    if (bookmarks != null) {
-                        Log.d("MainActivity", "Jumlah bookmark: ${bookmarks.size}")
-                        updateBookmarkIcons(bookmarks)
-                    } else {
-                        Log.d("MainActivity", "Bookmarks kosong.")
-                        showToast("Data bookmark kosong.")
-                    }
+                    response.body()?.data?.bookmarks?.let { bookmarks ->
+                        bookmarks.forEach { bookmark ->
+                            Log.d("MainActivity", "Bookmark ditemukan: ${bookmark.title}, ID: ${bookmark.id}")
+
+                            // Simpan di SharedPreferences
+                            getSharedPreferences("app_prefs", Context.MODE_PRIVATE).edit()
+                                .putBoolean("BOOKMARK_${bookmark.id}", true)
+                                .apply()
+
+                            // Update di adapter
+                            wisataAdapter.updateBookmarkStatus(bookmark.id, true)
+
+                            updateBookmarkIcons(bookmarks)
+
+                        }
+                        wisataAdapter.notifyDataSetChanged() // Tambahkan ini agar perubahan terlihat
+                    } ?: showToast("Data bookmark kosong.")
                 } else {
-                    Log.d("MainActivity", "Response gagal: ${response.errorBody()?.string()}")
                     showToast("Gagal mengambil bookmark: ${response.message()}")
                 }
             } catch (e: Exception) {
-                Log.e("MainActivity", "Terjadi kesalahan: ${e.message}", e)
                 showToast("Terjadi kesalahan: ${e.message}")
             }
         }
     }
+
+
 
 
     private fun updateBookmarkIcons(bookmarks: List<BookmarkItem>) {
@@ -194,14 +200,14 @@ class MainActivity : NoViewModelActivity<ActivityMainBinding>(R.layout.activity_
             try {
                 val response = apiService.getWisata(token = token)
                 if (response.isSuccessful) {
-                    response.body()?.data?.let {
-                        wisataAdapter.initItem(ArrayList(it.wisataList))
+                    response.body()?.data?.let { wisataData ->
+                        wisataData.wisataList.forEach {
+                            Log.d("MainActivity", "Wisata: ${it.title}, ID: ${it.id}")
+                        }
+                        wisataAdapter.initItem(ArrayList(wisataData.wisataList))
                         wisataAdapter.notifyDataSetChanged()
+                        getBookmarks()
                     } ?: showToast("Data wisata kosong.")
-
-                    Log.d("MainActivity", "Memanggil getBookmarks()...")
-
-                    getBookmarks()
                 } else {
                     showToast("Gagal mengambil data: ${response.message()}")
                 }
@@ -210,6 +216,8 @@ class MainActivity : NoViewModelActivity<ActivityMainBinding>(R.layout.activity_
             }
         }
     }
+
+
 
     private fun searchWisata(keyword: String) {
         lifecycleScope.launch {

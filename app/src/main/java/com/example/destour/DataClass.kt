@@ -109,7 +109,7 @@ data class BookmarkData(
 )
 
 data class BookmarkItem(
-    val id: Int,
+    @SerializedName("id_wisata") val id: Int,
     val title: String,
     val image_url: String,
     val lokasi: String,

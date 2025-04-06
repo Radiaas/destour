@@ -9,11 +9,14 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.crocodic.core.base.activity.NoViewModelActivity
 import com.example.destour.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -25,6 +28,7 @@ class MainActivity : NoViewModelActivity<ActivityMainBinding>(R.layout.activity_
 
     private lateinit var wisataAdapter: WisataAdapter
     private var token: String = ""
+    private var searchJob: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +42,7 @@ class MainActivity : NoViewModelActivity<ActivityMainBinding>(R.layout.activity_
 
         if (token.isNotEmpty()) {
             getWisataList()
+            getBookmarks()
         } else {
             showToast("Token tidak tersedia, silakan login ulang.")
         }
@@ -98,25 +103,19 @@ class MainActivity : NoViewModelActivity<ActivityMainBinding>(R.layout.activity_
     }
 
     private fun performLogout() {
-        Log.d("MainActivity", "Mulai logout...")
         lifecycleScope.launch {
             try {
                 val response = apiService.logout(token = token)
                 if (response.isSuccessful) {
-                    Log.d("MainActivity", "Logout berhasil, hapus token dan prefs...")
-
-                    // Hapus semua data SharedPreferences
-                    getSharedPreferences("app_prefs", Context.MODE_PRIVATE).edit().clear().apply()
-
-                    showToast("Berhasil logout.")
+                    // Hapus SEMUA data SharedPreferences
+                    getSharedPreferences("app_prefs", Context.MODE_PRIVATE).edit().apply {
+                        clear() // Ini menghapus semua data termasuk token dan bookmark
+                        apply()
+                    }
                     navigateToLogin()
-                } else {
-                    Log.d("MainActivity", "Logout gagal: ${response.message()}")
-                    showToast("Gagal logout: ${response.message()}")
                 }
             } catch (e: Exception) {
-                Log.d("MainActivity", "Error saat logout: ${e.message}")
-                showToast("Terjadi kesalahan: ${e.message}")
+                // Handle error
             }
         }
     }
@@ -144,18 +143,17 @@ class MainActivity : NoViewModelActivity<ActivityMainBinding>(R.layout.activity_
     }
 
     private fun setupSearchListener() {
-        binding.etSearch.setOnKeyListener { v, keyCode, event ->
-            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
-                val keyword = (v as EditText).text.toString().trim()
+        binding.etSearch.addTextChangedListener { editable ->
+            val keyword = editable.toString().trim()
+
+            searchJob?.cancel() // Batalkan pencarian sebelumnya
+            searchJob = lifecycleScope.launch {
+                delay(300) // debounce selama 300ms
                 if (keyword.isNotEmpty()) {
                     searchWisata(keyword)
                 } else {
                     getWisataList()
                 }
-                hideKeyboard()
-                true
-            } else {
-                false
             }
         }
     }

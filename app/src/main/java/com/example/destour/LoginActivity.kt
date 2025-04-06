@@ -2,6 +2,11 @@ package com.example.destour
 
 import android.content.Context
 import android.content.Intent
+import android.hardware.biometrics.BiometricManager.Authenticators.BIOMETRIC_STRONG
+import android.hardware.biometrics.BiometricManager.Authenticators.DEVICE_CREDENTIAL
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
 import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
@@ -24,16 +29,17 @@ class LoginActivity : NoViewModelActivity<ActivityLoginBinding>(R.layout.activit
                 // Langsung periksa token saat aplikasi dibuka
                 checkTokenAndNavigate()
 
-                binding.buttonLogin.setOnClickListener {
+        binding.buttonLogin.setOnClickListener {
             if (validateInputs()) {
                 showLoadingDialog()
                 processLogin()
             }
         }
 
-                binding.textViewRegister.setOnClickListener {
+        binding.textViewRegister.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
+
     }
 
     /**
@@ -116,6 +122,8 @@ class LoginActivity : NoViewModelActivity<ActivityLoginBinding>(R.layout.activit
             apply()
         }
     }
+
+
 
     private fun showToast(message: String) =
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()

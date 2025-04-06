@@ -103,11 +103,10 @@ class MainActivity : NoViewModelActivity<ActivityMainBinding>(R.layout.activity_
             try {
                 val response = apiService.logout(token = token)
                 if (response.isSuccessful) {
-                    Log.d("MainActivity", "Logout berhasil, hapus token...")
-                    getSharedPreferences("app_prefs", Context.MODE_PRIVATE).edit().apply {
-                        remove("token")
-                        apply()
-                    }
+                    Log.d("MainActivity", "Logout berhasil, hapus token dan prefs...")
+
+                    // Hapus semua data SharedPreferences
+                    getSharedPreferences("app_prefs", Context.MODE_PRIVATE).edit().clear().apply()
 
                     showToast("Berhasil logout.")
                     navigateToLogin()
@@ -121,6 +120,7 @@ class MainActivity : NoViewModelActivity<ActivityMainBinding>(R.layout.activity_
             }
         }
     }
+
 
     private fun navigateToLogin() {
         val intent = Intent(this, LoginActivity::class.java)

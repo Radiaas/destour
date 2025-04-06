@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import coil.load
 import com.bumptech.glide.Glide
+import com.crocodic.core.helper.ImagePreviewHelper
 import com.example.destour.databinding.ActivityDetailWisataBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -29,6 +30,19 @@ class DetailWisataActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailWisataBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        Glide.with(this)
+            .load(intent.getStringExtra("EXTRA_IMAGE_URL"))
+            .into(binding.imgWisata)
+
+        // Tambahkan ini setelah load image
+        val imageUrl = intent.getStringExtra("EXTRA_IMAGE_URL")
+        val imagePreviewHelper = ImagePreviewHelper(this)
+
+        binding.imgWisata.setOnClickListener {
+            imagePreviewHelper.show(binding.imgWisata, imageUrl)
+        }
+
 
         wisataId = intent.getIntExtra("EXTRA_ID", -1)
         isLiked = intent.getBooleanExtra("EXTRA_LIKED", false)

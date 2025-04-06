@@ -82,21 +82,32 @@ class LoginActivity : NoViewModelActivity<ActivityLoginBinding>(R.layout.activit
                 val request = LoginRequest(email = email, password = password)
                 val response = apiService.login(request)
                 hideLoadingDialog()
-                response.message?.let { showToast(it) }
 
-                if (response.status == "success") {
-                    // Simpan token ke SharedPreferences
-                    response.data?.token?.let { saveToken(it) }
+                if (response.isSuccessful) {
+                    val token = response.body()?.data?.token
 
-                    // Arahkan ke MainActivity
-                    navigateToMain()
+                    if (!token.isNullOrEmpty()) {
+                        // Hapus semua data SharedPreferences sebelum menyimpan token baru
+                        val prefs = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+                        prefs.edit().clear().apply()
+
+                        // Simpan token
+                        prefs.edit().putString("token", token).apply()
+
+                        navigateToMain()
+                    } else {
+                        showToast("Token tidak tersedia.")
+                    }
+                } else {
+                    showToast("Login gagal: ${response.message()}")
                 }
             } catch (e: Exception) {
                 hideLoadingDialog()
-                showToast("Error: ${e.message}")
+                showToast("Terjadi kesalahan: ${e.message}")
             }
         }
     }
+
 
     private fun saveToken(token: String) {
         val sharedPreferences = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)

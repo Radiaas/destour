@@ -14,7 +14,7 @@ interface ApiService {
     suspend fun register(@Body request: RegisterRequest): RegisterResponse
 
     @POST("exec")
-    suspend fun login(@Body request: LoginRequest): LoginResponse
+    suspend fun login(@Body request: LoginRequest): Response<LoginResponse>
 
     @GET("exec")
     suspend fun getWisata(

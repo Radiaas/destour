@@ -73,11 +73,11 @@ class WisataAdapter(
             if (isBookmarked) R.drawable.ic_bookmarked else R.drawable.ic_bookmark
         )
 
-        holder.binding.btnBookmark.setOnClickListener {
-            val newBookmarkStatus = !isBookmarked
-            sharedPrefs.edit().putBoolean("BOOKMARK_$wisataId", newBookmarkStatus).apply()
-            updateBookmarkStatus(wisataId, newBookmarkStatus)
-        }
+//        holder.binding.btnBookmark.setOnClickListener {
+//            val newBookmarkStatus = !isBookmarked
+//            sharedPrefs.edit().putBoolean("BOOKMARK_$wisataId", newBookmarkStatus).apply()
+//            updateBookmarkStatus(wisataId, newBookmarkStatus)
+//        }
     }
 
 

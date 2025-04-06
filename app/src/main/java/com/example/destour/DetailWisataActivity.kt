@@ -47,7 +47,6 @@ class DetailWisataActivity : AppCompatActivity() {
 
         updateLikeButton()
         updateBookmarkButton()
-        loadInitialLikeStatus() // Tambahkan ini untuk memuat status "like"
         loadInitialBookmarkStatus()
 
         binding.btnLike.setOnClickListener {

@@ -1,3 +1,29 @@
 <resources>
     <string name="app_name">destour</string>
+    <string name="bookmark">bookmark</string>
+    <string name="wisataimage">wisataImage</string>
+    <string name="btnlike">btnLike</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="logoicon">logoIcon</string>
+    <string name="login">Login</string>
+    <string name="belum_punya_akun_daftar_di_sini">Belum punya akun? Daftar di sini</string>
+    <string name="btnprofile">btnProfile</string>
+    <string name="btnfilter">btnFilter</string>
+    <string name="cari_wisata">Cari wisata...</string>
+    <string name="iconprofile">iconProfile</string>
+    <string name="nama">Nama</string>
+    <string name="nomor_hp">Nomor HP</string>
+    <string name="tutup">Tutup</string>
+    <string name="logout">Logout</string>
+    <string name="nama_lengkap">Nama Lengkap</string>
+    <string name="konfirmasi_password">Konfirmasi Password</string>
+    <string name="register">Register</string>
+    <string name="sudah_punya_akun_login_di_sini">Sudah punya akun? Login di sini</string>
+    <string name="semua_wisata">Semua Wisata</string>
+    <string name="disukai">Disukai</string>
+    <string name="di_bookmark">Di-Bookmark</string>
+    <string name="image_desc">image_desc</string>
+    <string name="bookmark_button">Bookmark button</string>
+    <string name="like_button">Like button</string>
 </resources>

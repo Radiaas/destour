@@ -16,6 +16,7 @@
             android:id="@+id/ivProfile"
             android:layout_width="80dp"
             android:layout_height="80dp"
+            android:contentDescription="@string/iconprofile"
             android:src="@drawable/ic_profile"
             android:scaleType="centerCrop"
             android:layout_marginBottom="16dp" />
@@ -24,7 +25,7 @@
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nama"
+            android:text="@string/nama"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -32,7 +33,7 @@
             android:id="@+id/tvEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Email"
+            android:text="@string/email"
             android:textSize="16sp"
             android:layout_marginTop="8dp" />
 
@@ -40,7 +41,7 @@
             android:id="@+id/tvPhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nomor HP"
+            android:text="@string/nomor_hp"
             android:textSize="16sp"
             android:layout_marginTop="4dp" />
 
@@ -48,14 +49,14 @@
             android:id="@+id/btnClose"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tutup"
+            android:text="@string/tutup"
             android:layout_marginTop="16dp" />
 
         <Button
             android:id="@+id/btnLogout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Logout"
+            android:text="@string/logout"
             android:layout_marginTop="8dp"
             android:backgroundTint="@color/black"
             android:textColor="@android:color/white" />

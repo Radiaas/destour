@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -30,9 +31,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:scaleType="centerCrop"
-                android:contentDescription="image_desc"
+                android:contentDescription="@string/image_desc"
                 android:layout_marginBottom="8dp"
-                android:clipToOutline="true" />
+                android:clipToOutline="true"
+                tools:ignore="UnusedAttribute" />
 
             <!-- Container untuk Judul, Lokasi & Like -->
             <LinearLayout
@@ -79,20 +81,22 @@
                     android:id="@+id/btnBookmark"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/ic_bookmark"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="Bookmark button"
-                    android:padding="8dp" />
+                    android:contentDescription="@string/bookmark_button"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_bookmark"
+                    tools:ignore="TouchTargetSizeCheck,RedundantDescriptionCheck" />
 
                 <!-- Tombol Like -->
                 <ImageButton
                     android:id="@+id/btnLike"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/ic_like"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="Like button"
-                    android:padding="8dp" />
+                    android:contentDescription="@string/like_button"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_like"
+                    tools:ignore="TouchTargetSizeCheck,RedundantDescriptionCheck" />
             </LinearLayout>
 
         </LinearLayout>

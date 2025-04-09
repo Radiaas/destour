@@ -1,5 +1,6 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -9,6 +10,7 @@
         android:id="@+id/imgWisata"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:contentDescription="@string/wisataimage"
         android:scaleType="centerCrop" />
 
     <TextView
@@ -45,9 +47,11 @@
             android:id="@+id/btnLike"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_like"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:padding="16dp" />
+            android:contentDescription="@string/btnlike"
+            android:padding="16dp"
+            android:src="@drawable/ic_like"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <ImageButton
             android:id="@+id/btnBookmark"
@@ -56,7 +60,7 @@
             android:src="@drawable/ic_bookmark"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:padding="16dp"
-            android:contentDescription="bookmark" />
+            android:contentDescription="@string/bookmark" />
     </LinearLayout>
 
 </LinearLayout>

@@ -23,10 +23,12 @@
                 android:id="@+id/etSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Cari wisata..."
+                android:autofillHints="searchWisata"
+                android:hint="@string/cari_wisata"
                 android:padding="10dp"
                 android:inputType="text"
-                android:drawableEnd="@android:drawable/ic_menu_search" />
+                android:drawableEnd="@android:drawable/ic_menu_search"
+                tools:ignore="VisualLintTextFieldSize" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvWisata"
@@ -50,6 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="14dp"
+                android:contentDescription="@string/btnfilter"
                 app:srcCompat="@drawable/ic_filter" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -57,6 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="14dp"
+                android:contentDescription="@string/btnprofile"
                 app:srcCompat="@drawable/ic_profile" />
         </LinearLayout>
 

@@ -1,4 +1,4 @@
-package com.example.destour
+package com.example.destour.api
 
 import com.crocodic.core.api.ApiResponse
 import okhttp3.ResponseBody

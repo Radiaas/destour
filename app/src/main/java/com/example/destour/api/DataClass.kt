@@ -1,4 +1,4 @@
-package com.example.destour
+package com.example.destour.api
 
 import com.google.gson.annotations.SerializedName
 

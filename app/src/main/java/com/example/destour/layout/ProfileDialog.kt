@@ -1,9 +1,9 @@
-package com.example.destour
+package com.example.destour.layout
 
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
-import com.bumptech.glide.Glide
+import com.example.destour.api.ProfileData
 import com.example.destour.databinding.ActivityProfileDialogBinding
 
 class ProfileDialog(context: Context, private val profile: ProfileData) : Dialog(context) {

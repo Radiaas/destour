@@ -1,19 +1,15 @@
-package com.example.destour
+package com.example.destour.layout
 
 import android.content.Context
 import android.content.Intent
-import android.hardware.biometrics.BiometricManager.Authenticators.BIOMETRIC_STRONG
-import android.hardware.biometrics.BiometricManager.Authenticators.DEVICE_CREDENTIAL
-import androidx.biometric.BiometricManager
-import androidx.biometric.BiometricPrompt
-import androidx.core.content.ContextCompat
 import android.os.Bundle
-import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.crocodic.core.base.activity.NoViewModelActivity
 import com.crocodic.core.extension.tos
+import com.example.destour.R
+import com.example.destour.api.ApiService
+import com.example.destour.api.LoginRequest
 import com.example.destour.databinding.ActivityLoginBinding
-import com.google.android.ads.mediationtestsuite.activities.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject

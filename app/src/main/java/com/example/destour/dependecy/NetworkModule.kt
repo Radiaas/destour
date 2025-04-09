@@ -1,5 +1,6 @@
-package com.example.destour
+package com.example.destour.dependecy
 
+import com.example.destour.api.ApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

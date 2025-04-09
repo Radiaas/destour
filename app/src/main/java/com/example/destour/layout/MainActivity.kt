@@ -1,20 +1,21 @@
-package com.example.destour
+package com.example.destour.layout
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.KeyEvent
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.crocodic.core.base.activity.NoViewModelActivity
 import com.crocodic.core.extension.tos
+import com.example.destour.R
+import com.example.destour.adapter.WisataAdapter
+import com.example.destour.api.ApiService
+import com.example.destour.api.BookmarkItem
 import com.example.destour.databinding.ActivityMainBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint

@@ -16,10 +16,10 @@
         android:theme="@style/Theme.Destour"
         tools:targetApi="31">
         <activity
-            android:name=".DetailWisataActivity"
+            android:name=".layout.DetailWisataActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".layout.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,10 +28,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RegisterActivity"
+            android:name=".layout.RegisterActivity"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".layout.MainActivity"
             android:exported="true" /> <!-- Tambahkan ini untuk menggantikan konflik properti -->
         <property
             android:name="android.adservices.AD_SERVICES_CONFIG"

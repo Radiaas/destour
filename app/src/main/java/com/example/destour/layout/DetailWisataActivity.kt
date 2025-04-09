@@ -1,15 +1,15 @@
-package com.example.destour
+package com.example.destour.layout
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import coil.load
 import com.bumptech.glide.Glide
 import com.crocodic.core.extension.tos
 import com.crocodic.core.helper.ImagePreviewHelper
+import com.example.destour.R
+import com.example.destour.api.ApiService
 import com.example.destour.databinding.ActivityDetailWisataBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

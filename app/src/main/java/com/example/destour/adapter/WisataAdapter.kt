@@ -1,4 +1,4 @@
-package com.example.destour
+package com.example.destour.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -6,7 +6,11 @@ import android.util.Log
 import com.bumptech.glide.Glide
 import com.crocodic.core.base.adapter.CoreListAdapter
 import com.crocodic.core.helper.ImagePreviewHelper
+import com.example.destour.R
+import com.example.destour.api.WisataItem
 import com.example.destour.databinding.ItemWisataBinding
+import com.example.destour.layout.DetailWisataActivity
+import com.example.destour.layout.MainActivity
 import timber.log.Timber
 
 class WisataAdapter(

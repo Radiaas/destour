@@ -1,11 +1,13 @@
-package com.example.destour
+package com.example.destour.layout
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.crocodic.core.base.activity.NoViewModelActivity
 import com.crocodic.core.extension.tos
+import com.example.destour.R
+import com.example.destour.api.ApiService
+import com.example.destour.api.RegisterRequest
 import com.example.destour.databinding.ActivityRegisterBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

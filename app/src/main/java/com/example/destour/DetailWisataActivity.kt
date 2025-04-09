@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import coil.load
 import com.bumptech.glide.Glide
+import com.crocodic.core.extension.tos
 import com.crocodic.core.helper.ImagePreviewHelper
 import com.example.destour.databinding.ActivityDetailWisataBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -123,16 +124,13 @@ class DetailWisataActivity : AppCompatActivity() {
                     }
                     setResult(RESULT_OK, resultIntent)
 
-                    Toast.makeText(
-                        this@DetailWisataActivity,
-                        "Berhasil ${if (isLiked) "menyukai" else "membatalkan like"} wisata",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    tos(
+                        "Berhasil ${if (isLiked) "menyukai" else "membatalkan like"} wisata")
                 } else {
-                    Toast.makeText(this@DetailWisataActivity, "Gagal memperbarui like", Toast.LENGTH_SHORT).show()
+                    tos( "Gagal memperbarui like")
                 }
             } catch (e: Exception) {
-                Toast.makeText(this@DetailWisataActivity, "Terjadi kesalahan: ${e.message}", Toast.LENGTH_SHORT).show()
+                tos( "Terjadi kesalahan: ${e.message}")
             }
         }
     }
@@ -163,16 +161,12 @@ class DetailWisataActivity : AppCompatActivity() {
                     }
                     setResult(RESULT_OK, resultIntent)
 
-                    Toast.makeText(
-                        this@DetailWisataActivity,
-                        "Berhasil ${if (isBookmarked) "menandai" else "menghapus"} bookmark",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    tos("Berhasil ${if (isBookmarked) "menandai" else "menghapus"} bookmark")
                 } else {
-                    Toast.makeText(this@DetailWisataActivity, "Gagal memperbarui bookmark", Toast.LENGTH_SHORT).show()
+                    tos("Gagal memperbarui bookmark")
                 }
             } catch (e: Exception) {
-                Toast.makeText(this@DetailWisataActivity, "Terjadi kesalahan: ${e.message}", Toast.LENGTH_SHORT).show()
+                tos("Terjadi kesalahan: ${e.message}")
             }
         }
     }

@@ -7,13 +7,16 @@ import android.util.Log
 import android.view.KeyEvent
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.crocodic.core.base.activity.NoViewModelActivity
+import com.crocodic.core.extension.tos
 import com.example.destour.databinding.ActivityMainBinding
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -25,6 +28,7 @@ class MainActivity : NoViewModelActivity<ActivityMainBinding>(R.layout.activity_
 
     @Inject
     lateinit var apiService: ApiService
+
 
     private lateinit var wisataAdapter: WisataAdapter
     private var token: String = ""
@@ -39,12 +43,12 @@ class MainActivity : NoViewModelActivity<ActivityMainBinding>(R.layout.activity_
         loadToken()
         setupSearchListener()
         setupFabClickListener()
+        setupFilterBottomSheet()
 
         if (token.isNotEmpty()) {
             getWisataList()
-            getBookmarks()
         } else {
-            showToast("Token tidak tersedia, silakan login ulang.")
+            tos("Token tidak tersedia, silakan login ulang.")
         }
     }
 
@@ -83,12 +87,12 @@ class MainActivity : NoViewModelActivity<ActivityMainBinding>(R.layout.activity_
 
                         }
                         wisataAdapter.notifyDataSetChanged() // Tambahkan ini agar perubahan terlihat
-                    } ?: showToast("Data bookmark kosong.")
+                    } ?: tos("Data bookmark kosong.")
                 } else {
-                    showToast("Gagal mengambil bookmark: ${response.message()}")
+                    tos("Gagal mengambil bookmark: ${response.message()}")
                 }
             } catch (e: Exception) {
-                showToast("Terjadi kesalahan: ${e.message}")
+                tos("Terjadi kesalahan: ${e.message}")
             }
         }
     }
@@ -103,19 +107,25 @@ class MainActivity : NoViewModelActivity<ActivityMainBinding>(R.layout.activity_
     }
 
     private fun performLogout() {
+        Log.d("MainActivity", "Mulai logout...")
         lifecycleScope.launch {
             try {
                 val response = apiService.logout(token = token)
                 if (response.isSuccessful) {
-                    // Hapus SEMUA data SharedPreferences
-                    getSharedPreferences("app_prefs", Context.MODE_PRIVATE).edit().apply {
-                        clear() // Ini menghapus semua data termasuk token dan bookmark
-                        apply()
-                    }
+                    Log.d("MainActivity", "Logout berhasil, hapus token dan prefs...")
+
+                    // Hapus semua data SharedPreferences
+                    getSharedPreferences("app_prefs", Context.MODE_PRIVATE).edit().clear().apply()
+
+                    tos("Berhasil logout.")
                     navigateToLogin()
+                } else {
+                    Log.d("MainActivity", "Logout gagal: ${response.message()}")
+                    tos("Gagal logout: ${response.message()}")
                 }
             } catch (e: Exception) {
-                // Handle error
+                Log.d("MainActivity", "Error saat logout: ${e.message}")
+                tos("Terjadi kesalahan: ${e.message}")
             }
         }
     }
@@ -178,12 +188,12 @@ class MainActivity : NoViewModelActivity<ActivityMainBinding>(R.layout.activity_
                         }
 
                         dialog.show()
-                    } ?: showToast("Data profil tidak tersedia.")
+                    } ?: tos("Data profil tidak tersedia.")
                 } else {
-                    showToast("Gagal mengambil profil: ${response.message()}")
+                    tos("Gagal mengambil profil: ${response.message()}")
                 }
             } catch (e: Exception) {
-                showToast("Terjadi kesalahan: ${e.message}")
+                tos("Terjadi kesalahan: ${e.message}")
             }
         }
     }
@@ -205,12 +215,12 @@ class MainActivity : NoViewModelActivity<ActivityMainBinding>(R.layout.activity_
                         wisataAdapter.initItem(ArrayList(wisataData.wisataList))
                         wisataAdapter.notifyDataSetChanged()
                         getBookmarks()
-                    } ?: showToast("Data wisata kosong.")
+                    } ?: tos("Data wisata kosong.")
                 } else {
-                    showToast("Gagal mengambil data: ${response.message()}")
+                    tos("Gagal mengambil data: ${response.message()}")
                 }
             } catch (e: Exception) {
-                showToast("Terjadi kesalahan: ${e.message}")
+                tos("Terjadi kesalahan: ${e.message}")
             }
         }
     }
@@ -225,17 +235,56 @@ class MainActivity : NoViewModelActivity<ActivityMainBinding>(R.layout.activity_
                     response.body()?.data?.let {
                         wisataAdapter.initItem(ArrayList(it.wisataList))
                         wisataAdapter.notifyDataSetChanged()
-                    } ?: showToast("Wisata tidak ditemukan.")
+                    } ?: tos("Wisata tidak ditemukan.")
                 } else {
-                    showToast("Gagal mencari data: ${response.message()}")
+                    tos("Gagal mencari data: ${response.message()}")
                 }
             } catch (e: Exception) {
-                showToast("Terjadi kesalahan: ${e.message}")
+                tos("Terjadi kesalahan: ${e.message}")
             }
         }
     }
 
-    private fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    private fun setupFilterBottomSheet() {
+        binding.btnFilter.setOnClickListener {
+            val view = layoutInflater.inflate(R.layout.bottom_sheet_filter, null)
+            val dialog = BottomSheetDialog(this)
+            dialog.setContentView(view)
+
+            val tvAll = view.findViewById<TextView>(R.id.tvFilterAll)
+            val tvLiked = view.findViewById<TextView>(R.id.tvFilterLiked)
+            val tvBookmarked = view.findViewById<TextView>(R.id.tvFilterBookmarked)
+
+            tvAll.setOnClickListener {
+                getWisataList()
+                dialog.dismiss()
+            }
+
+            tvLiked.setOnClickListener {
+                showLikedWisata()
+                dialog.dismiss()
+            }
+
+            tvBookmarked.setOnClickListener {
+                showBookmarkedWisata()
+                dialog.dismiss()
+            }
+
+            dialog.show()
+        }
     }
+
+    private fun showLikedWisata() {
+        val likedItems = wisataAdapter.items.filter { it?.liked == true }
+        wisataAdapter.initItem(ArrayList(likedItems.filterNotNull()))
+        wisataAdapter.notifyDataSetChanged()
+    }
+
+    private fun showBookmarkedWisata() {
+        val bookmarkedItems = wisataAdapter.items.filter { it?.bookmarked == true }
+        wisataAdapter.initItem(ArrayList(bookmarkedItems.filterNotNull()))
+        wisataAdapter.notifyDataSetChanged()
+    }
+
+
 }

@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.crocodic.core.base.activity.NoViewModelActivity
+import com.crocodic.core.extension.tos
 import com.example.destour.databinding.ActivityLoginBinding
 import com.google.android.ads.mediationtestsuite.activities.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -68,11 +69,11 @@ class LoginActivity : NoViewModelActivity<ActivityLoginBinding>(R.layout.activit
 
         return when {
             email.isEmpty() -> {
-                showToast("Email tidak boleh kosong")
+                tos("Email tidak boleh kosong")
                 false
             }
             password.isEmpty() -> {
-                showToast("Password tidak boleh kosong")
+                tos("Password tidak boleh kosong")
                 false
             }
             else -> true
@@ -102,14 +103,14 @@ class LoginActivity : NoViewModelActivity<ActivityLoginBinding>(R.layout.activit
 
                         navigateToMain()
                     } else {
-                        showToast("Token tidak tersedia.")
+                        tos("Token tidak tersedia.")
                     }
                 } else {
-                    showToast("Login gagal: ${response.message()}")
+                    tos("Login gagal: ${response.message()}")
                 }
             } catch (e: Exception) {
                 hideLoadingDialog()
-                showToast("Terjadi kesalahan: ${e.message}")
+                tos("Terjadi kesalahan: ${e.message}")
             }
         }
     }
@@ -125,8 +126,6 @@ class LoginActivity : NoViewModelActivity<ActivityLoginBinding>(R.layout.activit
 
 
 
-    private fun showToast(message: String) =
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 
     private fun showLoadingDialog() = loadingDialog.show()
     private fun hideLoadingDialog() = loadingDialog.dismiss()

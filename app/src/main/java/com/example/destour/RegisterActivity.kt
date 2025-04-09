@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.crocodic.core.base.activity.NoViewModelActivity
+import com.crocodic.core.extension.tos
 import com.example.destour.databinding.ActivityRegisterBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -43,12 +44,12 @@ class RegisterActivity : NoViewModelActivity<ActivityRegisterBinding>(R.layout.a
         ).map { it.toString().trim() }
 
         return when {
-            nama.isEmpty() -> showToast("Nama lengkap tidak boleh kosong").let { false }
-            email.isEmpty() -> showToast("Email tidak boleh kosong").let { false }
-            hp.isEmpty() -> showToast("Nomor HP tidak boleh kosong").let { false }
-            password.isEmpty() -> showToast("Password tidak boleh kosong").let { false }
-            confirmPassword.isEmpty() -> showToast("Konfirmasi password tidak boleh kosong").let { false }
-            password != confirmPassword -> showToast("Password dan konfirmasi tidak sesuai").let { false }
+            nama.isEmpty() -> tos("Nama lengkap tidak boleh kosong").let { false }
+            email.isEmpty() -> tos("Email tidak boleh kosong").let { false }
+            hp.isEmpty() -> tos("Nomor HP tidak boleh kosong").let { false }
+            password.isEmpty() -> tos("Password tidak boleh kosong").let { false }
+            confirmPassword.isEmpty() -> tos("Konfirmasi password tidak boleh kosong").let { false }
+            password != confirmPassword -> tos("Password dan konfirmasi tidak sesuai").let { false }
             else -> true
         }
     }
@@ -66,17 +67,15 @@ class RegisterActivity : NoViewModelActivity<ActivityRegisterBinding>(R.layout.a
             try {
                 val response = apiService.register(request)
                 hideLoadingDialog()
-                showToast(response.message)
+                tos(response.message)
                 if (response.code == 201) finish()
             } catch (e: Exception) {
                 hideLoadingDialog()
-                showToast("Error: ${e.message}")
+                tos("Error: ${e.message}")
             }
         }
     }
 
-    private fun showToast(message: String) =
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 
     private fun showLoadingDialog() = loadingDialog.show()
     private fun hideLoadingDialog() = loadingDialog.dismiss()
